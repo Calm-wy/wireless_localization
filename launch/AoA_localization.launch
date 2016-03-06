@@ -1,0 +1,11 @@
+<launch>
+	<!-- <param name="calibFile" type="string" value="xxx"/> -->
+    <node pkg="AoA_localization" type="AoA_localization" name="AoA_localization" output="screen">
+    <remap from="~transmitter" to="/wireless_receiver/transmitter"/>
+    <remap from="~AoA" to="/wireless_receiver/AoA" />
+    </node>
+
+     <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find AoA_localization)/rviz_cfg/AoA_localization.rviz"/> -->
+</launch>
+
+
