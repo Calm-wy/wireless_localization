@@ -49,14 +49,6 @@ Vector3d AoA_localize(vector<Vector3d>& transmitters, vector<Vector3d>& AoA)
 {
 	assert(transmitters.size() == AoA.size());
 	double targetPos[2] = {0.0, 0.0};
-	// cout << "tramsmitters: " << transmitters[0].transpose() << endl;
-	// cout << "AoA: " << AoA[0].transpose() << endl;
-	// Vector3d pp;
-	// pp(0) = transmitters[0](0) - AoA[0](0);
-	// pp(1) = transmitters[0](1) - AoA[0](1);
-	// pp(2) = transmitters[0](2) - AoA[0](2);
-	// return pp;
-
 
 	Problem problem;
 	for (int i = 0; i < AoA.size(); ++i) 
