@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(AoA_localization)
+project(wireless_localization)
 
 set(CMAKE_BUILD_TYPE "release")
 set(CMAKE_CXX_FLAGS "-std=c++11 -march=native")
@@ -21,7 +21,6 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 
-find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Ceres REQUIRED)
 
@@ -164,8 +163,12 @@ ${EIGEN3_INCLUDE_DIR})
 #   ${catkin_LIBRARIES}
 # )
 
+add_executable(rss_localization src/rss_localization_node.cpp src/rss_localization.cpp)
+target_link_libraries(rss_localization ${catkin_LIBRARIES} ceres)
+
+
 add_executable(AoA_localization src/AoA_localization_node.cpp src/AoA_localization.cpp src/conversion.cpp)
-target_link_libraries(AoA_localization ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ceres)
+target_link_libraries(AoA_localization ${catkin_LIBRARIES} ceres)
 
 #############
 ## Install ##
