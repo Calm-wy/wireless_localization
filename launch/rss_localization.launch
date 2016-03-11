@@ -1,0 +1,10 @@
+<launch>
+    <node pkg="wireless_localization" type="rss_localization" name="rss_localization" output="screen">
+    <remap from="~transmitter" to="/wireless_receiver/transmitter"/>
+    <remap from="~rss" to="/wireless_receiver/rss" />
+    </node>
+
+     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find wireless_localization)/rviz_cfg/rss_localization.rviz"/>
+</launch>
+
+
