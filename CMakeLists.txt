@@ -170,6 +170,9 @@ target_link_libraries(rss_localization ${catkin_LIBRARIES} ceres)
 add_executable(AoA_localization src/AoA_localization_node.cpp src/AoA_localization.cpp src/conversion.cpp)
 target_link_libraries(AoA_localization ${catkin_LIBRARIES} ceres)
 
+add_executable(wireless_localization src/wireless_localization_node.cpp src/wireless_localization.cpp src/conversion.cpp)
+target_link_libraries(wireless_localization ${catkin_LIBRARIES} ceres)
+
 #############
 ## Install ##
 #############
