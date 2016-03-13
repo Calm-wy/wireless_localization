@@ -27,7 +27,7 @@ bool transmitters_initialized = false;
 Matrix3d R_wireless2world;
 bool wireless2world_initialized = false;
 
-
+ros::Time now;//current time
 
 void transmitterCallback(const sensor_msgs::PointCloudConstPtr &msg)
 {
@@ -85,6 +85,7 @@ void wirelessCallback(const sensor_msgs::PointCloudConstPtr& AoA_msg, const sens
 	pose.pose.orientation.y = 0;
 	pose.pose.orientation.z = 0;
 	pose_pub.publish(pose);
+	now = rss_msg->header.stamp;
 }
 
 
@@ -116,7 +117,7 @@ int main(int argc, char** argv)
 		tf::StampedTransform transform;
 		try{
 		//targe_frame <- source frame
-			ros::Time now = ros::Time::now();
+			
 			listener.waitForTransform("/world", "wireless_receiver_link", 
 					   now, ros::Duration(3.0));
 			listener.lookupTransform("/world", "/wireless_receiver_link",
@@ -124,7 +125,7 @@ int main(int argc, char** argv)
 		}
 			catch (tf::TransformException &ex) {
 			ROS_ERROR("%s",ex.what());
-			
+			loop_rate.sleep();
 			continue;
 		}
 		Quaterniond qq;
@@ -135,7 +136,8 @@ int main(int argc, char** argv)
 		R_wireless2world = quaternion2mat(qq);
 		wireless2world_initialized = true;
 		loop_rate.sleep();
-	}	
+	}
+
 	return 0;
 }
 

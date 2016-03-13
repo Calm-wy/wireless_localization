@@ -51,8 +51,8 @@ struct  wireless_Residual
 Vector3d wireless_localize(vector<Vector3d>& transmitters, vector<double>& rss, vector<Vector3d>& AoA)
 {
 	assert(transmitters.size() == AoA.size() && transmitters.size() == rss.size() );
-	double targetPos[3] = {0.0, 0.0, 0.0};
-
+	// double targetPos[3] = {0.0, 0.0, 0.0};
+	Vector3d targetPos = Vector3d::Zero();
 	Problem problem;
 	for (int i = 0; i < AoA.size(); ++i) 
 	{
@@ -63,7 +63,7 @@ Vector3d wireless_localize(vector<Vector3d>& transmitters, vector<double>& rss, 
 		        	rss[i],
 		        	transmitters[i] ));
 
-		problem.AddResidualBlock(cost_function, NULL, targetPos);
+		problem.AddResidualBlock(cost_function, NULL, &targetPos(0));
 	}
 
 	Solver::Options options;
@@ -75,8 +75,9 @@ Vector3d wireless_localize(vector<Vector3d>& transmitters, vector<double>& rss, 
 	Solve(options, &problem, &summary);
 	std::cout << summary.BriefReport() << "\n";
 
-	Vector3d p(targetPos[0], targetPos[1], 0); 
-	return p;
+	return targetPos;
+	// Vector3d p(targetPos[0], targetPos[1], 0); 
+	// return p;
 }
 
 
